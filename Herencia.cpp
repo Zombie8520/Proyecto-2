@@ -2,53 +2,53 @@ using namespace std;
 #include <iostream>
 #include <string>
 
-// Clase base
+// Base class
 class Animal {
 public:
-    Animal(const string& nombre) : nombre_(nombre) {}
+    Animal(const string& name) : name_(name) {}
 
-    void comer() const {
-        cout << nombre_ << " está comiendo." << endl;
+    void eat() const {
+        cout << name_ << " is eating." << endl;
     }
 
-    void dormir() const {
-        cout << nombre_ << " está durmiendo." << endl;
+    void sleep() const {
+        cout << name_ << " is sleeping." << endl;
     }
 
 private:
-    string nombre_;
+    string name_;
 };
 
-// Clase derivada
-class Perro : public Animal {
+// Derived class
+class Dog : public Animal {
 public:
-    Perro(const string& nombre, const string& raza) : Animal(nombre), raza_(raza) {}
+    Dog(const string& name, const string& breed) : Animal(name), breed_(breed) {}
 
-    void ladrar() const {
-        cout << "¡Guau! Soy un perro de raza " << raza_ << "." << endl;
+    void bark() const {
+        cout << "Woof! I'm a " << breed_ << " dog." << endl;
     }
 
 private:
-    string raza_;
+    string breed_;
 };
 
 int main() {
-    // Crear un objeto de la clase base
+    // Creating an object of the base class
     Animal animal("Animal");
 
-    // Usar funciones de la clase base
-    animal.comer();
-    animal.dormir();
+    // Using functions from the base class
+    animal.eat();
+    animal.sleep();
 
     cout << "---------------------" << endl;
 
-    // Crear un objeto de la clase derivada
-    Perro miPerro("Buddy", "Labrador");
+    // Creating an object of the derived class
+    Dog myDog("Buddy", "Labrador");
 
-    // Usar funciones de ambas clases (herencia)
-    miPerro.comer();
-    miPerro.dormir();
-    miPerro.ladrar();
+    // Using functions from both classes (inheritance)
+    myDog.eat();
+    myDog.sleep();
+    myDog.bark();
 
     return 0;
 }
