@@ -1,68 +1,67 @@
-
 using namespace std;
 #include <iostream>
 #include <string>
 
-// Parent class to represent a character from One Piece
-class PersonajeOnePiece {
+// Clase Padre para representar un personaje de One Piece
+class OnePieceCharacter {
 protected:
-    string nombre;
-    int nivelPoder;
+    string name;
+    int powerLevel;
 
 public:
-    PersonajeOnePiece(const string& nombre, int nivelPoder)
-        : nombre(nombre), nivelPoder(nivelPoder) {}
+    OnePieceCharacter(const string& name, int powerLevel)
+        : name(name), powerLevel(powerLevel) {}
 
-    void saludar() const {
-        cout << "I am " << nombre << endl;
+    void greet() const {
+        cout << "I am " << name << endl;
     }
 
-    void mostrarPoder() const {
-        cout << "Power level: " << nivelPoder << endl;
-    }
-};
-
-// Daughter class to represent a pirate
-class Pirata : public PersonajeOnePiece {
-private:
-    string apodo;
-
-public:
-    Pirata(const string& nombre, int nivelPoder, const string& apodo)
-        : PersonajeOnePiece(nombre, nivelPoder), apodo(apodo) {}
-
-    void presentarse() const {
-        saludar();
-        cout << "I am known as '" << apodo << "'." << endl;
-        mostrarPoder();
+    void showPower() const {
+        cout << "Power level: " << powerLevel << endl;
     }
 };
 
-// Derived class to represent a marine
-class Marine : public PersonajeOnePiece {
+// Clase hija para representar un pirata
+class Pirate : public OnePieceCharacter {
 private:
-    string rango;
+    string nickname;
 
 public:
-    Marine(const string& nombre, int nivelPoder, const string& rango)
-        : PersonajeOnePiece(nombre, nivelPoder), rango(rango) {}
+    Pirate(const string& name, int powerLevel, const string& nickname)
+        : OnePieceCharacter(name, powerLevel), nickname(nickname) {}
 
-    void informar() const {
-        saludar();
-        cout << "I am a Marine with the rank of '" << rango << "'." << endl;
-        mostrarPoder();
+    void introduce() const {
+        greet();
+        cout << "I am known as '" << nickname << "'." << endl;
+        showPower();
+    }
+};
+
+// Clase derivada para representar un marine
+class Marine : public OnePieceCharacter {
+private:
+    string rank;
+
+public:
+    Marine(const string& name, int powerLevel, const string& rank)
+        : OnePieceCharacter(name, powerLevel), rank(rank) {}
+
+    void report() const {
+        greet();
+        cout << "I am a Marine with the rank of '" << rank << "'." << endl;
+        showPower();
     }
 };
 
 int main() {
-    Pirata luffy("Monkey D. Luffy", 900, "Luffy");
+    Pirate luffy("Monkey D. Luffy", 900, "Luffy");
     Marine smoker("Smoker", 800, "Captain");
 
     cout << "\n** Presentation of Pirate **\n";
-    luffy.presentarse();
+    luffy.introduce();
 
     cout << "\n** Marine Report **\n";
-    smoker.informar();
+    smoker.report();
 
     return 0;
 }

@@ -1,155 +1,139 @@
-//Clase
-
 #include<bits/stdc++.h>
 
 using namespace std;
 
 // ----------------------------------------------------------------
-// Clase abstracta
-class TrabajadorAbstracto{
-    virtual void recibirPago()=0; // Funcion miembro pura (virtual pura)
+// Abstract class
+class AbstractWorker {
+    virtual void receivePayment() = 0; // Pure virtual member function
 };
 
-// -------------- CLASES PADRES (E HIJAS DE LA ABSTRACTA) ----------
-// Clase Padre y a su vez clase hija de la abstracta
-class Empleado:TrabajadorAbstracto{  // Empleado hereda de TrabajadorAbstracto y su vez es clase padre de otras clases.
+// -------------- PARENT CLASSES (AND CHILDREN OF THE ABSTRACT CLASS) ----------
+// Parent Class, also a child class of the abstract class
+class Employee : public AbstractWorker {
 protected:
-    string nombre;  // Pasamos Nombre a protected para que sus clases hijas puedan acceder a ellas.
+    string name;
 
-private:    // Estan encapsuladas. Son privadas y nadie fuera de la clase pueda accesar a ellas.
-    string compania;
-    char categoria;
-    int edad;
-    int antiguedad;
-
+private:
+    string company;
+    char category;
+    int age;
+    int seniority;
 
 public:
-    // Metodo
-    void presentarse(){
-        cout << "Nombre: " << nombre << endl;
-        cout << "Compania: " << compania << endl;
-        cout << "Edad: " << edad << endl;
+    void introduce() {
+        cout << "Name: " << name << endl;
+        cout << "Company: " << company << endl;
+        cout << "Age: " << age << endl;
     }
 
-    // Constuctor por default
-    // Empleado(){};
-
-    // (otro) Constructor por default. Solo puede haber uno.
-    Empleado(){
-        nombre = "No definido";
-        compania = "No definida";
-        categoria = 'A';
-        edad = 0;
-        antiguedad = 0;
+    Employee() {
+        name = "Undefined";
+        company = "Undefined";
+        category = 'A';
+        age = 0;
+        seniority = 0;
     };
 
-    Empleado(string nombre, string compania, char categoria, int edad, int antiguedad){
-        this->nombre = nombre;
-        this->compania = compania;
-        this->categoria = categoria;
-        this->edad = edad;
-        this->antiguedad = antiguedad;
+    Employee(string name, string company, char category, int age, int seniority) {
+        this->name = name;
+        this->company = company;
+        this->category = category;
+        this->age = age;
+        this->seniority = seniority;
     }
 
-    ~Empleado(){
-        cout << "Destruyendo objeto...(Clase Empleado)" << endl;
+    ~Employee() {
+        cout << "Destroying object...(Employee Class)" << endl;
     }
 
-    // Getters y Setters
-    void setNombre(string nombre){
-        this->nombre = nombre;
+    void setName(string name) {
+        this->name = name;
     }
 
-    string getNombre(){
-        return nombre;
+    string getName() {
+        return name;
     }
 
-    void setCompania(string compania){
-        this->compania = compania;
+    void setCompany(string company) {
+        this->company = company;
     }
 
-    string getCompania(){
-        return compania;
+    string getCompany() {
+        return company;
     }
 
-    void setCategoria(char categoria){
-        this->categoria = categoria;
+    void setCategory(char category) {
+        this->category = category;
     }
 
-    char getCategoria(){
-        return categoria;
+    char getCategory() {
+        return category;
     }
 
-    void setEdad(int edad){
-        this->edad = edad;
+    void setAge(int age) {
+        this->age = age;
     }
 
-    int getEdad(){
-        return edad;
+    int getAge() {
+        return age;
     }
 
-    void setAntiguedad(){
-        this->antiguedad = antiguedad;
+    void setSeniority() {
+        this->seniority = seniority;
     }
 
-    int getAntigued(){
-        return antiguedad;
+    int getSeniority() {
+        return seniority;
     }
 
-    // Implementacion del metodo de la clase abstracta
-    void recibirPago(){
-        cout << "Recibira su sueldo a su cuenta bancaria cada quincena\n";
+    void receivePayment() {
+        cout << "Will receive salary in the bank account every two weeks\n";
     }
 
-    // Nueva funcion
-    virtual void trabajar(){ // Al hacerla virtual, obligamos a que las hijas hagan una implementacion del metodo trabajar() para aplicar polimorfismo,
-                    // De lo contrario, se usa la implementacion del padre.
-        cout << "Trabajando... Atendiendo pendientes, revisando agenda..." << endl;
+    virtual void work() {
+        cout << "Working... Attending tasks, checking schedule..." << endl;
     }
 
-    void checarSalida(){
-        cout << "El trabajador " << nombre << " acaba de checar su salida" << endl;
+    void checkOut() {
+        cout << name << " just checked out" << endl;
     }
 };
 
-// Otra clase Padre y a su vez clas hija de la abstracta
-class Profesionista:TrabajadorAbstracto{
+// Another Parent Class, also a child of the abstract class
+class Professional : public AbstractWorker {
 protected:
-    string nombre;
+    string name;
 
 private:
     string rfc;
-    string profesion;
-    int edad;
+    string profession;
+    int age;
     int id;
 
-    static int cont;
-
+    static int count;
 
 public:
-    // Constructor por defecto
-    Profesionista(){};
+    Professional() {};
 
-    // Constructor parametrizado
-    Profesionista(string nombre, string profesion, string rfc, int edad, int id){
-        this->nombre = nombre;
-        this->profesion = profesion;
+    Professional(string name, string profession, string rfc, int age, int id) {
+        this->name = name;
+        this->profession = profession;
         this->rfc = rfc;
-        this->edad = edad;
+        this->age = age;
         this->id = id;
-        contadorDeInstancias();
+        instanceCounter();
     }
 
-    // getters y setters
-    string getNombre(){
-        return nombre;
+    string getName() {
+        return name;
     }
 
-    void setNombre(string nombre) {
-        nombre = nombre;
+    void setName(string name) {
+        name = name;
     }
 
-    string getRfc(){
+    string getRfc() {
         return rfc;
     }
 
@@ -157,7 +141,7 @@ public:
         this->rfc = rfc;
     }
 
-    int getId(){
+    int getId() {
         return id;
     }
 
@@ -165,323 +149,155 @@ public:
         this->id = id;
     }
 
-    void recibirPago(){
-        cout << "Recibira pago por honorarios" << endl;
+    void receivePayment() {
+        cout << "Will receive payment for fees" << endl;
     }
 
-    void declararAlSAT(){
-        cout << "El profesionista presentara su declaracion al SAT " << endl;
+    void reportToSAT() {
+        cout << "The professional will file taxes to the IRS" << endl;
     }
 
-    void mostrarRFC(){
-        cout << "El RFC de " << nombre << " es: " << getRfc() << endl;
+    void showRfc() {
+        cout << "The RFC of " << name << " is: " << getRfc() << endl;
     }
 
-    // Metodo estatico: Le pertenece a la clase.
-    static int contadorDeInstancias(){
-        cont++;
-        return cont;
+    static int instanceCounter() {
+        count++;
+        return count;
     }
 };
 
-// Nueva clase padre (solo para probar herencia multiple)
-class Cientifico{
+// New Parent Class (just for multiple inheritance demonstration)
+class Scientist {
 protected:
-    string academia;
-    string grado;
+    string academy;
+    string degree;
 
 public:
-    Cientifico(string academia, string grado){
-        this->academia = academia;
-        this->grado = grado;
+    Scientist(string academy, string degree) {
+        this->academy = academy;
+        this->degree = degree;
     }
 
-    ~Cientifico(){
-        cout << "Destruyendo objeto... (Clase Cientifico)" << endl;
+    ~Scientist() {
+        cout << "Destroying object... (Scientist Class)" << endl;
     }
 
-    void realizarExperimento(){
-        cout << "Realizando experimento en el laboratorio" << endl;
+    void conductExperiment() {
+        cout << "Conducting experiment in the laboratory" << endl;
     }
 
-    void presentarse(){
-        cout << "Grado: " << grado << endl << "Academia de: " << academia << endl;
+    void introduce() {
+        cout << "Degree: " << degree << endl << "Academy: " << academy << endl;
     }
 };
 
-// --------------- CLASES HIJAS ------------------------------------
-// Clase Hija de Empleado
-class IngenieroMecatronico: public Empleado{
+// --------------- CHILD CLASSES ------------------------------------
+// Child Class of Employee
+class MechatronicsEngineer : public Employee {
 public:
-    string lenguajeFavorito;
-    string controladorFavorito;
+    string favoriteLanguage;
+    string favoriteController;
 
-    // Constructor de la clase hija
-    IngenieroMecatronico(string nombre, string compania, char categoria, int edad, int antiguedad, string lenguajeFavorito, string controladorFavorito)
-        :Empleado(nombre, compania, categoria, edad, antiguedad){  // Aprovecha el constructor del padre.
-            this->lenguajeFavorito = lenguajeFavorito;
-            this->controladorFavorito = controladorFavorito;
-        }
-    
-    // Getters y setters
-    string getLenguajeFavorito(){
-        return lenguajeFavorito;
+    MechatronicsEngineer(string name, string company, char category, int age, int seniority, string favoriteLanguage, string favoriteController)
+        : Employee(name, company, category, age, seniority) {
+        this->favoriteLanguage = favoriteLanguage;
+        this->favoriteController = favoriteController;
     }
 
-    void setLenguajeFavorito(string lenguajeFavorito){
-        this->lenguajeFavorito = lenguajeFavorito;
+    string getFavoriteLanguage() {
+        return favoriteLanguage;
     }
 
-    string getControladorFavorito(){
-        return controladorFavorito;
+    void setFavoriteLanguage(string favoriteLanguage) {
+        this->favoriteLanguage = favoriteLanguage;
     }
 
-    void setControladorFavorito(string controladorFavorito){
-        this->controladorFavorito = controladorFavorito;
+    string getFavoriteController() {
+        return favoriteController;
     }
 
-    // metodo propio de la clase hija
-    void programarMicros(){
-        cout << "El Ingeniero " << nombre << " programa micros en " << lenguajeFavorito << endl;
+    void setFavoriteController(string favoriteController) {
+        this->favoriteController = favoriteController;
     }
 
-    // segundo metodo propio de la clase hija
-    void construirPrototipos(){
-        cout << "El Ingeniero " << nombre << " esta realizando un prototipo para un controlador " << controladorFavorito << endl;
+    void programMicros() {
+        cout << name << " engineers micros in " << favoriteLanguage << endl;
     }
 
-    // Polimorfismo (Definicion informal): Un metodo o clase puede tener formas distintas
-    // Diferente implementacion del metodo trabajar() heredado del padre.
-    void trabajar(){
-        cout << "El Ingeniero " << nombre << " esta trabajando con PLC" << endl;
+    void buildPrototypes() {
+        cout << name << " is creating a prototype for a " << favoriteController << " controller" << endl;
+    }
+
+    void work() {
+        cout << name << " is working with PLC" << endl;
     }
 };
 
-// Otra clase hija de Empleado
-class IngenieroBioelectronico: public Empleado{
+// Another Child Class of Employee
+class BioelectronicsEngineer : public Employee {
 public:
-    string disenoFavorito;
-    string microFavorito;
+    string favoriteDesign;
+    string favoriteMicro;
 
-    // Constructor de la clase hija
-    IngenieroBioelectronico(string nombre, string compania, char categoria, int edad, int antiguedad, string disenoFavorito, string microFavorito)
-        :Empleado(nombre, compania, categoria, edad, antiguedad){  // Aprovecha el constructor del padre.
-            this->disenoFavorito = disenoFavorito;    // Solo define los atributos propios
-            this->microFavorito = microFavorito;
-        }
-    
-    // Getters y setters
-    string getDisenoFavorito() { 
-        return disenoFavorito; 
+    BioelectronicsEngineer(string name, string company, char category, int age, int seniority, string favoriteDesign, string favoriteMicro)
+        : Employee(name, company, category, age, seniority) {
+        this->favoriteDesign = favoriteDesign;
+        this->favoriteMicro = favoriteMicro;
     }
 
-    void setDisenoFavorito(string disenoFavorito) {
-        this->disenoFavorito = disenoFavorito;
+    string getFavoriteDesign() {
+        return favoriteDesign;
     }
 
-    string getMicroFavorito(){
-        return microFavorito;
+    void setFavoriteDesign(string favoriteDesign) {
+        this->favoriteDesign = favoriteDesign;
     }
 
-    void setMicroFavorito(string microFavorito) {
-        this->microFavorito = microFavorito;
+    string getFavoriteMicro() {
+        return favoriteMicro;
     }
 
-    // metodo propio de la clase hija
-    void disenar(){
-        cout << "El Ingeniero " << nombre << " disena en " << disenoFavorito << endl;
+    void setFavoriteMicro(string favoriteMicro) {
+        this->favoriteMicro = favoriteMicro;
     }
 
-    // Otro metodo propio de la clase hija
-    void quemarMicroFavorito(){
-        cout << "El Ingeniero " << nombre << " quemo su microcontrolador " << microFavorito << endl;
+    void design() {
+        cout << name << " designs in " << favoriteDesign << endl;
     }
 
-    // Otro ejemplo de polimorfismo
-    void trabajar(){
-        cout << "El Ingeniero " << nombre << " esta disenando circuitos de bioinstrumentacion" << endl;
+    void burnFavoriteMicro() {
+        cout << name << " burned the microcontroller " << favoriteMicro << endl;
+    }
+
+    void work() {
+        cout << name << " is designing bioinstrumentation circuits" << endl;
     }
 };
 
-// Clase hija de Profesionista
-class Profesor: public Profesionista{
+// Child Class of Professional
+class Teacher : public Professional {
 public:
-    string materia;
-    string grado;
+    string subject;
+    string degree;
 
-    // Constructor
-    Profesor(string nombre, string profesion, string rfc, int edad, int id, string materia, string grado)
-    : Profesionista(nombre, profesion, rfc, edad, id){
-        this->materia = materia;
-        this->grado = grado;
+    Teacher(string name, string profession, string rfc, int age, int id, string subject, string degree)
+        : Professional(name, profession, rfc, age, id) {
+        this->subject = subject;
+        this->degree = degree;
     }
 
-    // Getters y setters
-    string getMateria(){
-        return materia;
+    string getSubject() {
+        return subject;
     }
 
-    void setMateria(string materia){
-        this->materia = materia;
+    void setSubject(string subject) {
+        this->subject = subject;
     }
 
-    string getGrado(){
-        return grado;
+    string getDegree() {
+        return degree;
     }
 
-    void setGrado(string grado){
-        this->grado = grado;
-    }
-
-    // Metodos propios
-    void prepararClase(){
-        cout << "El " << grado << " " << nombre << " esta preparando la clase de " << materia << endl;
-    }
-
-    void darClase(){
-        cout << "El " << grado << " " << nombre << " imparte su clase de " << materia << endl;
-    } 
-};
-
-class Medico: public Profesionista{
-public:
-    string especialidad;
-    string hospital;
-
-    // Constructor
-    Medico(string nombre, string profesion, string rfc, int edad, int id, string especialidad, string hospital)
-    : Profesionista(nombre, profesion, rfc, edad, id){
-        this->especialidad = especialidad;
-        this->hospital = hospital;
-    }
-
-    // Getters y Setters
-    string getEspecialidad() { 
-        return this->especialidad; 
-    }
-
-    void setEspecialidad(string especialidad) {
-        this->especialidad = especialidad;
-    }
-
-    string getHospital(){
-        return hospital;
-    }
-
-    void setHospital(string hospital) {
-        this->hospital = hospital;
-    }
-
-    // Metodos propios de la clase
-    void consultar(){
-        cout << "El Dr. " << nombre << " reviso a su paciente y le receto antibioticos" << endl;
-    }
-
-    void hacerGuardia(){
-        cout << "El Dr. " << nombre << " debe hacer guardia en el hospital " << hospital << endl;
-    }
-};
-
-class Investigador: public Empleado, public Cientifico{
-    string areaInvestigacion;
-
-public:
-    // Constructor
-    Investigador(string nombre, string compania, char categoria, int edad, int antiguedad, string academia, string grado, string areaInvestigacion)
-                :Empleado(nombre, compania, categoria, edad, antiguedad), Cientifico(academia, grado){
-                    this->areaInvestigacion = areaInvestigacion;
-                }
-
-    void hacerPresentacion(){
-        Empleado::presentarse();
-        Cientifico::presentarse();
-    }
-
-};
-
-// ---------------- METODOS NO MIEMBROS DE NINGUNA CLASE ---------------
-void aumentarEdad(Empleado &empleado){ // Se esta pasando un objeto como parametro de la funcion (Como referencia para que se apliquen los cambios en el objeto original)
-    int nuevaEdad = empleado.getEdad() + 1;
-    cout << "Nueva Edad: " << nuevaEdad << endl;
-    empleado.setEdad(nuevaEdad);
-}
-
-// Que sucede aqui? Mismo nombre, diferentes parametros? - Sobrecarga de funciones.
-void aumentarEdad(Empleado *p_empleado){ // Se esta pasando un puntero de tipo del objeto como parametro de la funcion (Se aplican los cambios en el objeto original)
-    int nuevaEdad = p_empleado->getEdad() + 1;
-    cout << "Nueva Edad: " << nuevaEdad << endl;
-    p_empleado->setEdad(nuevaEdad);
-}
-
-// Uso de la variable estatica de la clase Profesionista (Inicializacion)
-int Profesionista::cont = 0;
-// --------------- MAIN ---------------------------------------------
-int main(){
-
-    Empleado empleado1 = Empleado("Eduardo", "UP", 'A', 27, 3);
-    empleado1.presentarse();
-
-    cout << empleado1.getNombre() << " tiene " << empleado1.getEdad() << " y trabaja en " << empleado1.getCompania() << endl;
-    cout << endl;
-
-    // Creando un nuevo objeto de la clase IngenieroMecatronico
-    IngenieroMecatronico mec = IngenieroMecatronico("Emmanuel", "Bonaterra", 'B', 30, 4, "C", "PID");
-    mec.programarMicros();
-    cout << endl;
-
-    // Creando un nuevo objeto de la clase IngenieroBioelectronico
-    IngenieroBioelectronico bio = IngenieroBioelectronico("Daniel", "Hospital", 'A', 31, 3, "SolidWorks", "ATMega-328P");
-    bio.disenar();
-    cout << endl;
-
-    Empleado empleadoNuevo; // Exiten dos constructores, el default y el parametrizado.
-    empleadoNuevo.presentarse(); // El objeto empleadoNuevo no tiene informacion brindada por el usuario, sino cadenas vacias y un numero aleatorio.
-    cout << endl;
-
-    // Uso de la funcion no miembro
-    aumentarEdad(&empleado1);
-    empleado1.presentarse(); // Llamada solo para aprovechar que en este metodo se imprime la edad
-    cout << endl;
-
-    aumentarEdad(bio);
-    bio.presentarse();
-    cout << endl;
-
-    /* Polimorfismo (Aproximacion formal):
-    El uso mas comun del polimorfismo es cuando una referencia a una clase padre es usada para referir a un objeto de una clase hija
-    */
-
-    // Punteros hacia las clases
-    Empleado* e1 = &mec;
-    Empleado* e2 = &bio;
-
-    // Al llamar a los metodos de las clases hijas a traves de los punteros, se ejecutara para ambos casos el de la clase padre, a menos que esta sea virtual.
-    // Si alguna clase hija no implemento el metodo al cual trata de acceder, por defecto utilizara el de su clase padre.
-    e1->trabajar();
-    e2->trabajar();
-    cout << endl;
-
-    // Creando objetos con las nuevas clases
-    Profesionista p1; // Se inicializa con el constructor por defecto.
-    cout << "ID del profesionista: " << p1.getId() << endl;
-    cout << endl;
-
-    Profesor prof1 = Profesor("Emmanuel", "Ing. Biomedico", "ROLE123", 27, 1234, "Programacion Avanzada", "MCC");
-    prof1.darClase();
-    prof1.declararAlSAT();
-
-    Medico dr = Medico("Gregorio Casas", "Lic. Medico cirujano", "GCC1234", 35, 1234, "Medico diagnosta", "Princeton");
-    dr.consultar();
-    dr.hacerGuardia();
-    cout << endl;
-
-    // Uso de metodo estatico
-    cout << "Se han realizado " << Profesionista::contadorDeInstancias() << " instancias de la clase Profesionista" << endl;
-
-    // Ejemplo de objeto con herencia multiple
-    Investigador inv = Investigador("Mario", "UCI", 'A', 45, 20, "Quimica", "Dr", "Quimica molecular");
-    inv.realizarExperimento(); // Es heredado de clase Cientifico
-    inv.hacerPresentacion(); // Invocacion al metodo de la clase Investigador que a su vez llama a ambos metodos presentarse()
-
-    return 0;
-}
+    void setDegree(string degree) {
+        this->

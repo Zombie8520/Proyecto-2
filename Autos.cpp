@@ -1,84 +1,83 @@
 
-using namespace std;
 #include <iostream>
 #include <string>
 
-// Clase base para representar un auto
-class Auto {
+// Base class to represent a car
+class Car {
 protected:
-    string marca;
-    string modelo;
-    int año;
+    std::string brand;
+    std::string model;
+    int year;
 
 public:
-    Auto(const string& marca, const string& modelo, int año)
-        : marca(marca), modelo(modelo), año(año) {}
+    Car(const std::string& brand, const std::string& model, int year)
+        : brand(brand), model(model), year(year) {}
 
-    void mostrarInfo() const {
-        cout << "Marca: " << marca << ", Modelo: " << modelo << ", Año: " << año << endl;
+    void showInfo() const {
+        std::cout << "Brand: " << brand << ", Model: " << model << ", Year: " << year << std::endl;
     }
 
-    virtual void arrancar() const {
-        cout << "El auto está arrancando." << endl;
+    virtual void start() const {
+        std::cout << "The car is starting." << std::endl;
     }
 };
 
-// Clase derivada para representar un auto deportivo
-class AutoDeportivo : public Auto {
+// Derived class to represent a sports car
+class SportsCar : public Car {
 private:
-    int potencia;
+    int power;
 
 public:
-    AutoDeportivo(const string& marca, const string& modelo, int año, int potencia)
-        : Auto(marca, modelo, año), potencia(potencia) {}
+    SportsCar(const std::string& brand, const std::string& model, int year, int power)
+        : Car(brand, model, year), power(power) {}
 
-    void acelerar() const {
-        cout << "Acelerando el auto deportivo. ¡Vroom, vroom!" << endl;
+    void accelerate() const {
+        std::cout << "Accelerating the sports car. Vroom, vroom!" << std::endl;
     }
 
-    void arrancar() const override {
-        cout << "Arrancando el auto deportivo. ¡Vroom!" << endl;
+    void start() const override {
+        std::cout << "Starting the sports car. Vroom!" << std::endl;
     }
 };
 
-// Clase derivada para representar un SUV
-class SUV : public Auto {
+// Derived class to represent an SUV
+class SUV : public Car {
 private:
-    bool traccionTotal;
+    bool allWheelDrive;
 
 public:
-    SUV(const string& marca, const string& modelo, int año, bool traccionTotal)
-        : Auto(marca, modelo, año), traccionTotal(traccionTotal) {}
+    SUV(const std::string& brand, const std::string& model, int year, bool allWheelDrive)
+        : Car(brand, model, year), allWheelDrive(allWheelDrive) {}
 
-    void conducirTodoTerreno() const {
-        if (traccionTotal) {
-            cout << "Conduciendo en terreno todo terreno con tracción en las cuatro ruedas." << endl;
+    void driveOffRoad() const {
+        if (allWheelDrive) {
+            std::cout << "Driving on all-terrain with all-wheel drive." << std::endl;
         } else {
-            cout << "Conduciendo en terreno todo terreno." << endl;
+            std::cout << "Driving on all-terrain." << std::endl;
         }
     }
 };
 
 int main() {
-    Auto sedan("Toyota", "Camry", 2022);
-    AutoDeportivo deportivo("Ferrari", "LaFerrari", 2023, 950);
+    Car sedan("Toyota", "Camry", 2022);
+    SportsCar sportsCar("Ferrari", "LaFerrari", 2023, 950);
     SUV suv("Jeep", "Wrangler", 2022, true);
 
-    cout << "** Información del Sedán **" << endl;
-    sedan.mostrarInfo();
-    sedan.arrancar();
-    cout << endl;
+    std::cout << "** Sedan Information **" << std::endl;
+    sedan.showInfo();
+    sedan.start();
+    std::cout << std::endl;
 
-    cout << "** Información del Auto Deportivo **" << endl;
-    deportivo.mostrarInfo();
-    deportivo.arrancar();
-    deportivo.acelerar();
-    cout << endl;
+    std::cout << "** Sports Car Information **" << std::endl;
+    sportsCar.showInfo();
+    sportsCar.start();
+    sportsCar.accelerate();
+    std::cout << std::endl;
 
-    cout << "** Información del SUV **" << endl;
-    suv.mostrarInfo();
-    suv.arrancar();
-    suv.conducirTodoTerreno();
+    std::cout << "** SUV Information **" << std::endl;
+    suv.showInfo();
+    suv.start();
+    suv.driveOffRoad();
 
     return 0;
 }
