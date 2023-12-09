@@ -1,81 +1,81 @@
-
 using namespace std;
 #include <iostream>
 #include <string>
 
-// Clase base para representar un taco
+// Base class to represent a taco
 class Taco {
 protected:
-    string tipo;
-    double precio;
+    string type;
+    double price;
 
 public:
-    Taco(const string& tipo, double precio)
-        : tipo(tipo), precio(precio) {}
+    Taco(const string& type, double price)
+        : type(type), price(price) {}
 
-    void mostrarInfo() const {
-        cout << "Tipo de taco: " << tipo << ", Precio: $" << precio << endl;
+    void showInfo() const {
+        cout << "Taco type: " << type << ", Price: $" << price << endl;
     }
 
-    virtual void preparar() const {
-        cout << "Preparando el taco de " << tipo << "." << endl;
+    virtual void prepare() const {
+        cout << "Preparing the " << type << " taco." << endl;
     }
 };
 
-// Clase derivada para representar un taco de carne asada
+// Derived class to represent a carne asada taco
 class TacoCarneAsada : public Taco {
 private:
-    bool conSalsaVerde;
+    bool withGreenSauce;
 
 public:
-    TacoCarneAsada(double precio, bool conSalsaVerde)
-        : Taco("Carne Asada", precio), conSalsaVerde(conSalsaVerde) {}
+    TacoCarneAsada(double price, bool withGreenSauce)
+        : Taco("Carne Asada", price), withGreenSauce(withGreenSauce) {}
 
-    void agregarSalsaVerde() const {
-        if (conSalsaVerde) {
-            cout << "Añadiendo salsa verde al taco de carne asada." << endl;
+    void addGreenSauce() const {
+        if (withGreenSauce) {
+            cout << "Adding green sauce to the carne asada taco." << endl;
         } else {
-            cout << "Preparando el taco de carne asada sin salsa verde." << endl;
+            cout << "Preparing the carne asada taco without green sauce." << endl;
         }
     }
 
-    void preparar() const override {
-        cout << "Asando la carne para el taco de carne asada." << endl;
-        agregarSalsaVerde();
+    void prepare() const override {
+        cout << "Grilling the meat for the carne asada taco." << endl;
+        addGreenSauce();
     }
 };
 
-// Clase derivada para representar un taco de pescado
+// Derived class to represent a fish taco
 class TacoPescado : public Taco {
 private:
-    string tipoPescado;
+    string fishType;
 
 public:
-    TacoPescado(double precio, const string& tipoPescado)
-        : Taco("Pescado", precio), tipoPescado(tipoPescado) {}
+    TacoPescado(double price, const string& fishType)
+        : Taco("Pescado", price), fishType(fishType) {}
 
-    void preparar() const override {
-        cout << "Preparando el taco de pescado con " << tipoPescado << "." << endl;
+    void prepare() const override {
+        cout << "Preparing the fish taco with " << fishType << "." << endl;
     }
 };
 
 int main() {
     Taco simple("Carnitas", 2.5);
-    TacoCarneAsada asadaConSalsa(3.0, true);
-    TacoPescado pescadoEspecial(4.5, "atún");
+    TacoCarneAsada grilledWithSauce(3.0, true);
+    TacoPescado specialFish(4.5, "tuna");
 
-    cout << "** Información del Taco Simple **" << endl;
-    simple.mostrarInfo();
-    simple.preparar();
+    cout << "** Information about the Simple Taco **" << endl;
+    simple.showInfo();
+    simple.prepare();
     cout << endl;
 
-    cout << "** Información del Taco de Carne Asada **" << endl;
-    asadaConSalsa.mostrarInfo();
-    asadaConSalsa.preparar();
+    cout << "** Information about the Carne Asada Taco **" << endl;
+    grilledWithSauce.showInfo();
+    grilledWithSauce.prepare();
     cout << endl;
 
-    cout << "** Información del Taco de Pescado Especial **" << endl;
-    pescadoEspecial.mostrarInfo();
-    pescadoEspecial.preparar();
+    cout << "** Information about the Special Fish Taco **" << endl;
+    specialFish.showInfo();
+    specialFish.prepare();
 
-   
+    return 0;
+}
